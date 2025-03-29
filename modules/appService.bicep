@@ -1,5 +1,6 @@
 param location string
 param appServiceAppName string
+param keyVaultName string
 
 @allowed([
   'nonprod'
@@ -24,9 +25,19 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2024-04-01' = {
 resource appServiceApp 'Microsoft.Web/sites@2024-04-01' = {
   name: appServiceAppName
   location: location
+  identity: { type: 'SystemAssigned' }
   properties: {
     serverFarmId: appServicePlan.id
     httpsOnly: true
+    siteConfig: {
+      alwaysOn: true
+      appSettings: [
+        {
+          name: 'keyVault'
+          value: keyVaultName
+        }
+      ]
+    }
   }
 }
 
