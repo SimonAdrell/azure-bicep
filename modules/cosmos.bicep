@@ -45,35 +45,35 @@ resource database 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2022-05-15
   }
 }
 
-resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2022-05-15' = [
-  for name in containerNames: {
-    parent: database
-    name: name
-    properties: {
-      resource: {
-        id: name
-        // partitionKey: {
-        //   paths: [
-        //     '/userId'
-        //   ]
-        // }
-        indexingPolicy: {
-          indexingMode: 'consistent'
-          includedPaths: [
-            {
-              path: '/*'
-            }
-          ]
-          excludedPaths: [
-            {
-              path: '/_etag/?'
-            }
-          ]
-        }
-      }
-    }
-  }
-]
+// resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2022-05-15' = [
+//   for name in containerNames: {
+//     parent: database
+//     name: name
+//     properties: {
+//       resource: {
+//         id: name
+//         partitionKey: {
+//           paths: [
+//             '/partitionKey'
+//           ]
+//         }
+//         indexingPolicy: {
+//           indexingMode: 'consistent'
+//           includedPaths: [
+//             {
+//               path: '/*'
+//             }
+//           ]
+//           excludedPaths: [
+//             {
+//               path: '/_etag/?'
+//             }
+//           ]
+//         }
+//       }
+//     }
+//   }
+// ]
 
 @description('Principal ID of the managed identity')
 param principalId string

@@ -30,7 +30,6 @@ resource appServiceApp 'Microsoft.Web/sites@2024-04-01' = {
     serverFarmId: appServicePlan.id
     httpsOnly: true
     siteConfig: {
-      alwaysOn: true
       appSettings: [
         {
           name: 'keyVault'
@@ -47,7 +46,7 @@ resource sourceControl 'Microsoft.Web/sites/sourcecontrols@2023-01-01' = {
   properties: {
     repoUrl: repoURL
     branch: 'main'
-    isManualIntegration: false
+    isManualIntegration: true
   }
 }
 
